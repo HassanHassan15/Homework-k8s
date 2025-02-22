@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: todo-app
+  template:
+    metadata:
+      labels:
+        app: todo-app
+    spec:
+      containers:
+      - name: todo-app
+        image: hassan1515/todo-app:latest
+        env:
+        - name: DATABASE_URL
+          value: "postgres://admin:password@db:5432/tododb"
+        - name: PGHOST
+          value: "db"
+        - name: PGUSER
+          value: "admin"
+        - name: PGDATABASE
+          value: "tododb"
+        - name: PGPASSWORD
+          value: "password"
+        ports:
+        - containerPort: 3000
